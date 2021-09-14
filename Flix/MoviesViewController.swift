@@ -8,10 +8,12 @@
 import UIKit
 import AlamofireImage
 
-class MovieViewController: UIViewController, UITableViewDataSource,UITableViewDelegate {
-    
+class MoviesViewController: UIViewController, UITableViewDataSource,UITableViewDelegate{
+
     
     @IBOutlet var tableView: UITableView!
+   
+   
     var movies = [[String:Any]]()
     
     override func viewDidLoad() {
@@ -33,7 +35,7 @@ class MovieViewController: UIViewController, UITableViewDataSource,UITableViewDe
                 self.movies = dataDictionary["results"] as! [[String:Any]]
                 
                 self.tableView.reloadData()
-                print(dataDictionary)
+                
                     // TODO: Get the array of movies
                     // TODO: Store the movies in a property to use elsewhere
                     // TODO: Reload your table view data
@@ -68,14 +70,27 @@ class MovieViewController: UIViewController, UITableViewDataSource,UITableViewDe
         return cell
     }
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+    print("loading up the details screen here")
+   
+    //find the selected movie
+    let cell = sender as! UITableViewCell
+    let indexPath = tableView.indexPath(for:cell)!
+    let movie = movies[indexPath.row]
+    
+    //pass the selected movie to the details view controller
+        
+        let detailsViewController = segue.destination as! MovieDetailsViewController
+        detailsViewController.movie = movie
+        
+        tableView.deselectRow(at: indexPath,animated:true)
     }
-    */
+    
 
 }
